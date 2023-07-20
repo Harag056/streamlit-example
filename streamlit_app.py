@@ -1,38 +1,36 @@
 import streamlit as st
 import snowflake.connector
 
-def main():
-    st.title("Snowflake Connection App")
 
-    # Input fields for Snowflake connection parameters
-    snowflake_account = st.text_input("Snowflake Account", "")
-    snowflake_user = st.text_input("User", "")
-    snowflake_password = st.text_input("Password", "", type="password")
-    snowflake_warehouse = st.text_input("Warehouse", "")
-    snowflake_database = st.text_input("Database", "")
-    snowflake_schema = st.text_input("Schema", "")
+st.title("Snowflake Connection App")
 
-    if st.button("Connect"):
-        # Connect to Snowflake
-        try:
-            connection = snowflake.connector.connect(
-                account=snowflake_account,
-                user=snowflake_user,
-                password=snowflake_password,
-                warehouse=snowflake_warehouse,
-                database=snowflake_database,
-                schema=snowflake_schema
-            )
-            cursor = connection.cursor()
+# Input fields for Snowflake connection parameters
+snowflake_account = st.text_input("Snowflake Account", "")
+snowflake_user = st.text_input("User", "")
+snowflake_password = st.text_input("Password", "", type="password")
+snowflake_warehouse = st.text_input("Warehouse", "")
+snowflake_database = st.text_input("Database", "")
+snowflake_schema = st.text_input("Schema", "")
 
-            # Execute a sample query
-            cursor.execute("SELECT CURRENT_TIMESTAMP() as CurrentTime;")
-            result = cursor.fetchone()
+if st.button("Connect"):
+    # Connect to Snowflake
+    try:
+        connection = snowflake.connector.connect(
+            account=snowflake_account,
+            user=snowflake_user,
+            password=snowflake_password,
+            warehouse=snowflake_warehouse,
+            database=snowflake_database,
+            schema=snowflake_schema
+        )
+        cursor = connection.cursor()
 
-            st.success(f"Connected to Snowflake! Current timestamp: {result[0]}")
-            connection.close()
-        except Exception as e:
-            st.error(f"Error: {e}")
+        # Execute a sample query
+        cursor.execute("SELECT CURRENT_TIMESTAMP() as CurrentTime;")
+        result = cursor.fetchone()
 
-if __name__ == "__main__":
-    main()
+        st.success(f"Connected to Snowflake! Current timestamp: {result[0]}")
+        connection.close()
+    except Exception as e:
+        st.error(f"Error: {e}")
+
