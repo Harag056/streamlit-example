@@ -33,4 +33,5 @@ if st.button("Connect"):
         connection.close()
     except Exception as e:
         st.error(f"Error: {e}")
+        connection.close()
 
