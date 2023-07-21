@@ -12,32 +12,55 @@ snowflake_warehouse = st.text_input("Warehouse", "")
 snowflake_database = st.text_input("Database", "")
 snowflake_schema = st.text_input("Schema", "")
 
-if st.button("Connect"):
-    # Connect to Snowflake
-    #try:
-    """
-    connection = snowflake.connector.connect(
-        account=snowflake_account,
-        user=snowflake_user,
+# Function to connect to Snowflake
+def connect_to_snowflake():
+    conn = snowflake.connect(
+        user=snowflake_username,
         password=snowflake_password,
+        account=snowflake_account,
         warehouse=snowflake_warehouse,
         database=snowflake_database,
         schema=snowflake_schema
     )
-    """
-    print(snowflake_account)
-    snowflake_user
-    """
-    cursor = connection.cursor()
+    return conn
 
-    # Execute a sample query
-    cursor.execute("SELECT CURRENT_TIMESTAMP() as CurrentTime;")
-    result = cursor.fetchone()
+# Function to execute a Snowflake query and return results
+def execute_query(conn, query):
+    cursor = conn.cursor()
+    cursor.execute(query)
+    results = cursor.fetchall()
+    cursor.close()
+    return results
 
-    st.success(f"Connected to Snowflake! Current timestamp: {result[0]}")
-    connection.close()
-    """
-   # except Exception as e:
-     #   st.error(f"Error: {e}")
-     #   connection.close()
+# Streamlit app
+def main():
+    st.title("Snowflake Data Viewer")
+    
+    # Connect to Snowflake
+    try:
+        conn = connect_to_snowflake()
+        st.success("Connected to Snowflake")
+    except Exception as e:
+        st.error(f"Error connecting to Snowflake: {str(e)}")
+        return
+    
+    # Query input
+    query_input = st.text_area("Enter your Snowflake SQL query:")
+    
+    if st.button("Run Query"):
+        # Execute the query and display results
+        try:
+            results = execute_query(conn, query_input)
+            if results:
+                st.table(results)
+            else:
+                st.info("No results to display.")
+        except Exception as e:
+            st.error(f"Error executing query: {str(e)}")
+    
+    # Close the Snowflake connection when the app is closed
+    st.experimental_rerun_on_finish(connect_to_snowflake)
+    conn.close()
 
+if __name__ == "__main__":
+    main()
