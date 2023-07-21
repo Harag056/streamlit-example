@@ -5,12 +5,19 @@ import snowflake.connector
 st.title("Snowflake Connection App")
 
 # Input fields for Snowflake connection parameters
-snowflake_account = st.text_input("Snowflake Account", "")
-snowflake_user = st.text_input("User", "")
-snowflake_password = st.text_input("Password", "", type="password")
-snowflake_warehouse = st.text_input("Warehouse", "")
-snowflake_database = st.text_input("Database", "")
-snowflake_schema = st.text_input("Schema", "")
+# snowflake_account = st.text_input("Snowflake Account", "")
+# snowflake_user = st.text_input("User", "")
+# snowflake_password = st.text_input("Password", "", type="password")
+# snowflake_warehouse = st.text_input("Warehouse", "")
+# snowflake_database = st.text_input("Database", "")
+# snowflake_schema = st.text_input("Schema", "")
+
+snowflake_username = 'TESTUSER'
+snowflake_password = 'Test@123'
+snowflake_account = 'rz20203.central-india.azure.snowflakecomputing.com'
+snowflake_warehouse = 'COMPUTE_WH'
+snowflake_database = 'LandingAI_DB'
+snowflake_schema = 'Raw'
 
 # Function to connect to Snowflake
 def connect_to_snowflake():
