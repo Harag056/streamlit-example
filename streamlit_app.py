@@ -15,7 +15,7 @@ snowflake_schema = st.text_input("Schema", "")
 # Function to connect to Snowflake
 def connect_to_snowflake():
     conn = snowflake.connector.connect(
-        user=snowflake_username,
+        user=snowflake_user,
         password=snowflake_password,
         account=snowflake_account,
         warehouse=snowflake_warehouse,
