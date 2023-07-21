@@ -24,7 +24,7 @@ if st.button("Connect"):
         schema=snowflake_schema
     )
     print(connection)
-   """
+    """
     cursor = connection.cursor()
 
     # Execute a sample query
