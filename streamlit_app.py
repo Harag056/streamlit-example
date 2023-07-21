@@ -25,7 +25,8 @@ if st.button("Connect"):
         schema=snowflake_schema
     )
     """
-    print("wORKING")
+    print(snowflake_account)
+    snowflake_user
     """
     cursor = connection.cursor()
 
