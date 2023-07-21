@@ -22,7 +22,7 @@ snowflake_schema = 'Raw'
 # Function to connect to Snowflake
 def connect_to_snowflake():
     conn = snowflake.connector.connect(
-        user=snowflake_user,
+        user=snowflake_username,
         password=snowflake_password,
         account=snowflake_account,
         warehouse=snowflake_warehouse,
