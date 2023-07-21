@@ -15,6 +15,7 @@ snowflake_schema = st.text_input("Schema", "")
 if st.button("Connect"):
     # Connect to Snowflake
     #try:
+    """
     connection = snowflake.connector.connect(
         account=snowflake_account,
         user=snowflake_user,
@@ -23,7 +24,8 @@ if st.button("Connect"):
         database=snowflake_database,
         schema=snowflake_schema
     )
-    print(connection)
+    """
+    print("wORKING")
     """
     cursor = connection.cursor()
 
