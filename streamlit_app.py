@@ -14,7 +14,7 @@ st.title("Snowflake Connection App")
 
 snowflake_username = 'TESTUSER'
 snowflake_password = 'Test@123'
-snowflake_account = 'rz20203'
+snowflake_account = 'rz20203.central-india.azure'
 snowflake_warehouse = 'COMPUTE_WH'
 snowflake_database = 'LandingAI_DB'
 snowflake_schema = 'Raw'
