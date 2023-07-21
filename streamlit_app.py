@@ -23,6 +23,8 @@ if st.button("Connect"):
         database=snowflake_database,
         schema=snowflake_schema
     )
+    print(connection)
+   """
     cursor = connection.cursor()
 
     # Execute a sample query
@@ -31,6 +33,7 @@ if st.button("Connect"):
 
     st.success(f"Connected to Snowflake! Current timestamp: {result[0]}")
     connection.close()
+    """
    # except Exception as e:
      #   st.error(f"Error: {e}")
      #   connection.close()
