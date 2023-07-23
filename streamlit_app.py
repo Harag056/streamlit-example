@@ -5,7 +5,7 @@ import io
 import cv2
 
 
-st.title("Snowflake Connection App")
+#st.title("Snowflake Connection App")
 
 # Input fields for Snowflake connection parameters
 # snowflake_account = st.text_input("Snowflake Account", "")
