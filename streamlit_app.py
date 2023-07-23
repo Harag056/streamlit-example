@@ -7,7 +7,7 @@ os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "protocol_whitelist;file,rtp,udp"
 # Import the other necessary libraries after setting the environment variables
 
 import streamlit as st
-import cv2
+# import cv2
 import numpy as np
 from PIL import Image
 
