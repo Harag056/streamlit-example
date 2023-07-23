@@ -7,9 +7,9 @@ os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "protocol_whitelist;file,rtp,udp"
 # Import the other necessary libraries after setting the environment variables
 
 import streamlit as st
-# import cv2
 import numpy as np
 from PIL import Image
+import cv2 
 
 def convert_video_to_binary(video_file):
     binary_data = video_file.read()
