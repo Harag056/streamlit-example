@@ -52,10 +52,8 @@ def convert_binary_to_video(binary_data):
 
 # Streamlit app
 def main():
-     st.title("Binary to Video Converter")
-
+    st.title("Binary to Video Converter")
     uploaded_file = st.file_uploader("Upload a binary video file", type=["mp4", "avi", "mov"])
-
     if uploaded_file is not None:
         # Read the binary file and convert it to video
         video_binary_data = uploaded_file.read()
@@ -63,7 +61,7 @@ def main():
 
         # Display the converted video
         st.video(converted_video)
-    st.title("Snowflake Data Viewer")
+    #st.title("Snowflake Data Viewer")
     
     # Connect to Snowflake
     # try:
