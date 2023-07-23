@@ -13,7 +13,7 @@ def main():
     if video_file is not None:
         # Convert the video to binary data
         binary_data = convert_video_to_binary(video_file)
-        """binary_data"""
+        binary_data
         return binary_data
         # Provide a link to download the binary file
         st.markdown(get_binary_file_download_link(binary_data), unsafe_allow_html=True)
