@@ -31,7 +31,7 @@ headers = {
   'apikey': 'land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O',
   'Content-type': 'multipart/form-data; boundary={}'.format(boundary)
 }
-conn.request("POST", "/inference/v1/predict?endpoint_id=456de868-464d-45e3-8f6a-8d9a8e1301ab", payload, headers)
+conn.request("POST", "/inference/v1/predict?endpoint_id=5bc96d69-6328-410f-83e2-eb3b5d97ad29", payload, headers)
 res = conn.getresponse()
 data = res.read()
 print(data.decode("utf-8"))
