@@ -18,6 +18,7 @@ def convert_bin_to_images(binary_data):
         return pil_images
     except Exception as e:
         st.error(f"Error occurred: {e}")
+        return None
 
 def main():
     st.title("Binary File to Images Converter")
@@ -30,9 +31,10 @@ def main():
         # Convert binary data to images
         images = convert_bin_to_images(binary_data)
 
-        # Display the images
-        for i, image in enumerate(images):
-            st.image(image, caption=f"Image {i+1}", use_column_width=True)
+        # Display the images if conversion is successful
+        if images:
+            for i, image in enumerate(images):
+                st.image(image, caption=f"Image {i+1}", use_column_width=True)
 
 if __name__ == "__main__":
     main()
