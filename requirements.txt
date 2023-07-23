@@ -2,5 +2,4 @@ altair
 pandas
 streamlit
 snowflake-connector-python
-opencv-python
 opencv-python-headless
