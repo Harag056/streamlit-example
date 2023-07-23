@@ -1,3 +1,11 @@
+import os
+
+# Set the environment variable to prevent graphical backend usage in OpenCV
+os.environ["OPENCV_IO_MAX_IMAGE_PIXELS"] = str(2**64)
+os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "protocol_whitelist;file,rtp,udp"
+
+# Import the other necessary libraries after setting the environment variables
+
 import streamlit as st
 import cv2
 import numpy as np
