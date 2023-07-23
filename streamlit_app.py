@@ -2,32 +2,24 @@
 # import requests
 # import os
 
-import streamlit as st
-import numpy as np
-import landingai
-
 # Generate API key and endpoint ID
-api_key = "land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O"
-endpoint_id = "456de868-464d-45e3-8f6a-8d9a8e1301ab"
+# api_key = "land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O"
+# endpoint_id = "456de868-464d-45e3-8f6a-8d9a8e1301ab"
 
-# Create predictor object
-predictor = landingai.Predictor(api_key=api_key, endpoint_id=endpoint_id)
+import streamlit as st
+import requests
 
-# Add a title to the app
-st.title("Landing AI Inference")
+# Define the curl command
+curl_command = "curl --location --request POST 'https://predict.app.landing.ai/inference/v1/predict?endpoint_id=5bc96d69-6328-410f-83e2-eb3b5d97ad29' \
+     --header 'Content-Type: multipart/form-data' \
+     --header 'apikey: YOUR_APIKEY' \
+     --form 'file=@\"YOUR_IMAGE\"'"
 
-# Add a button to upload an image
-st.button("Upload Image")
+# Execute the curl command
+response = requests.get(curl_command)
 
-# If the user uploaded an image, load it into a NumPy array
-if st.button("Upload Image"):
-    image = np.asarray(Image.open("my_image.jpg"))
-
-# Make a prediction
-prediction = predictor.predict(image)
-
-# Display the prediction
-st.write(prediction)
+# Print the response
+st.write(response.text)
 
 
 # LANDING_AI_API_KEY = "land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O"
