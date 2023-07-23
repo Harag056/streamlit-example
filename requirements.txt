@@ -1,2 +1,4 @@
+altair
+pandas
 streamlit
-landingai
+opencv-python-headless
