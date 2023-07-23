@@ -7,22 +7,34 @@
 # endpoint_id = "456de868-464d-45e3-8f6a-8d9a8e1301ab"
 
 import streamlit as st
-import requests
+import http.client
+import mimetypes
+from codecs import encode
 
-url = "https://predict.app.landing.ai/inference/v1/predict?endpoint_id=456de868-464d-45e3-8f6a-8d9a8e1301ab"
+conn = http.client.HTTPSConnection("predict.app.landing.ai")
+dataList = []
+boundary = 'wL36Yn8afVp8Ag7AmP8qZ0SA4n1v9T'
+dataList.append(encode('--' + boundary))
+dataList.append(encode('Content-Disposition: form-data; name=file; filename={0}'.format('')))
 
-payload = {}
-files=[
-  ('file',('1644269774_vehicles.jpg',open('1644269774_vehicles.jpg','rb'),'image/jpeg'))
-]
+fileType = mimetypes.guess_type('1644269774_vehicles.jpg')[0] or 'application/octet-stream'
+dataList.append(encode('Content-Type: {}'.format(fileType)))
+dataList.append(encode(''))
+
+with open('1644269774_vehicles.jpg', 'rb') as f:
+  dataList.append(f.read())
+dataList.append(encode('--'+boundary+'--'))
+dataList.append(encode(''))
+body = b'\r\n'.join(dataList)
+payload = body
 headers = {
-  'apikey': 'land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O'
+  'apikey': 'land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O',
+  'Content-type': 'multipart/form-data; boundary={}'.format(boundary)
 }
-
-response = requests.request("POST", url, headers=headers, data=payload, files=files)
-
-print(response.text)
-
+conn.request("POST", "/inference/v1/predict?endpoint_id=456de868-464d-45e3-8f6a-8d9a8e1301ab", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
 
 
 # LANDING_AI_API_KEY = "land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O"
