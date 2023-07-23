@@ -1,11 +1,30 @@
 import streamlit as st
+import cv2
+import numpy as np
+from PIL import Image
 
 def convert_video_to_binary(video_file):
     binary_data = video_file.read()
     return binary_data
 
+def get_video_frames(binary_data):
+    # Convert binary data to numpy array
+    np_array = np.frombuffer(binary_data, dtype=np.uint8)
+
+    # Read the video from the numpy array
+    video = cv2.imdecode(np_array, cv2.IMREAD_UNCHANGED)
+
+    # Get frames per second (FPS) of the video
+    fps = video.get(cv2.CAP_PROP_FPS)
+
+    # Extract one frame per second
+    frame_interval = int(fps)  # Retrieve one frame per second
+    frames = [Image.fromarray(frame) for i, frame in enumerate(video) if i % frame_interval == 0]
+
+    return frames
+
 def main():
-    st.title("Video to Binary File Converter")
+    st.title("Video to Frames Converter")
 
     # File uploader to choose a video file from the local machine
     video_file = st.file_uploader("Choose a video file", type=["mp4", "avi", "mkv"])
@@ -13,15 +32,13 @@ def main():
     if video_file is not None:
         # Convert the video to binary data
         binary_data = convert_video_to_binary(video_file)
-        binary_data
-        return binary_data
-        # Provide a link to download the binary file
-        st.markdown(get_binary_file_download_link(binary_data), unsafe_allow_html=True)
 
-def get_binary_file_download_link(binary_data):
-    # Function to create a download link for binary data
-    href = f'<a href="data:video/mp4;base64,{binary_data}" download="video_binary_file.bin">Download Binary File</a>'
-    return href
+        # Get frames from the video
+        frames = get_video_frames(binary_data)
+
+        # Display the frames
+        for i, frame in enumerate(frames):
+            st.image(frame, caption=f"Frame {i+1}", use_column_width=True)
 
 if __name__ == "__main__":
     main()
