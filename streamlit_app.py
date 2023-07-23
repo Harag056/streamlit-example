@@ -1,16 +1,16 @@
 import streamlit as st
-import landingai as la
+import requests
 
-# Get the API key from Landing AI
-api_key = "land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O"
+url = "https://predict.app.landing.ai/inference/v1/predict?endpoint_id=456de868-464d-45e3-8f6a-8d9a8e1301ab"
 
-# Create a Landing AI client
-#client = la.Client(api_key=api_key)
+payload = {}
+files=[
+  ('file',('1644269774_vehicles.jpg',open('og9uHBD8X/1644269774_vehicles.jpg','rb'),'image/jpeg'))
+]
+headers = {
+  'apikey': 'land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O'
+}
 
-# Create a text field
-text_input = st.text_input("Enter some text")
+response = requests.request("POST", url, headers=headers, data=payload, files=files)
 
-# Classify the text
-# if text_input:
-#     classification = client.classify(text_input)
-#     st.write(classification)
+print(response.text)
