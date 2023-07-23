@@ -2,11 +2,20 @@ import streamlit as st
 import cv2
 from PIL import Image
 
+
+def save_uploaded_file(uploaded_file):
+    with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+        temp_file.write(uploaded_file.read())
+        return temp_file.name
+        
 uploaded_file = st.file_uploader("Upload a video file", type=["mp4"])
 
 if uploaded_file is not None:
+    # Save the uploaded file to a temporary location
+    temp_video_path = save_uploaded_file(uploaded_file)
+    
     # Read the video file using OpenCV VideoCapture
-    video_capture = cv2.VideoCapture(uploaded_file)
+    video_capture = cv2.VideoCapture(temp_video_path)
     
     # Check if the video is opened successfully
     if not video_capture.isOpened():
