@@ -5,36 +5,44 @@
 # Generate API key and endpoint ID
 # api_key = "land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O"
 # endpoint_id = "456de868-464d-45e3-8f6a-8d9a8e1301ab"
-
 import streamlit as st
-import http.client
-import mimetypes
-from codecs import encode
+import numpy as np
+from PIL import Image
 
-conn = http.client.HTTPSConnection("predict.app.landing.ai")
-dataList = []
-boundary = 'wL36Yn8afVp8Ag7AmP8qZ0SA4n1v9T'
-dataList.append(encode('--' + boundary))
-dataList.append(encode('Content-Disposition: form-data; name=file; filename={0}'.format('')))
+def convert_bin_to_images(binary_data):
+    try:
+        # Convert binary data to a numpy array
+        np_array = np.frombuffer(binary_data, dtype=np.uint8)
 
-fileType = mimetypes.guess_type('1644269774_vehicles.jpg')[0] or 'application/octet-stream'
-dataList.append(encode('Content-Type: {}'.format(fileType)))
-dataList.append(encode(''))
+        # Assuming the data represents images, you can reshape it to a suitable shape (e.g., [num_images, height, width, channels])
+        # Replace 'num_images', 'height', 'width', and 'channels' with the actual values based on your binary data format.
+        # For example, if it's a single image with shape (height, width, channels), you can use np_array.reshape((height, width, channels))
+        images = np_array.reshape([num_images, height, width, channels])
 
-with open('1644269774_vehicles.jpg', 'rb') as f:
-  dataList.append(f.read())
-dataList.append(encode('--'+boundary+'--'))
-dataList.append(encode(''))
-body = b'\r\n'.join(dataList)
-payload = body
-headers = {
-  'apikey': 'land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O',
-  'Content-type': 'multipart/form-data; boundary={}'.format(boundary)
-}
-conn.request("POST", "/inference/v1/predict?endpoint_id=5bc96d69-6328-410f-83e2-eb3b5d97ad29", payload, headers)
-res = conn.getresponse()
-data = res.read()
-print(data.decode("utf-8"))
+        # Convert numpy arrays to PIL images
+        pil_images = [Image.fromarray(image) for image in images]
+
+        return pil_images
+    except Exception as e:
+        st.error(f"Error occurred: {e}")
+
+def main():
+    st.title("Binary File to Images Converter")
+    uploaded_file = st.file_uploader("Upload a binary file", type=["bin"])
+
+    if uploaded_file is not None:
+        # Read binary data from the uploaded file
+        binary_data = uploaded_file.getvalue()
+
+        # Convert binary data to images
+        images = convert_bin_to_images(binary_data)
+
+        # Display the images
+        for i, image in enumerate(images):
+            st.image(image, caption=f"Image {i+1}", use_column_width=True)
+
+if __name__ == "__main__":
+    main()
 
 
 # LANDING_AI_API_KEY = "land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O"
