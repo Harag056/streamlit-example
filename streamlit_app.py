@@ -12,7 +12,7 @@ import requests
 # Define the curl command
 curl_command = "curl --location --request POST 'https://predict.app.landing.ai/inference/v1/predict?endpoint_id=5bc96d69-6328-410f-83e2-eb3b5d97ad29' \
      --header 'Content-Type: multipart/form-data' \
-     --header 'apikey: YOUR_APIKEY' \
+     --header 'apikey: land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O' \
      --form 'file=@\"YOUR_IMAGE\"'"
 
 # Execute the curl command
