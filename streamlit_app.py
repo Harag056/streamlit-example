@@ -5,41 +5,55 @@
 # Generate API key and endpoint ID
 # api_key = "land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O"
 # endpoint_id = "456de868-464d-45e3-8f6a-8d9a8e1301ab"
+import os
+
+# Set the environment variable to prevent graphical backend usage in OpenCV
+os.environ["OPENCV_IO_MAX_IMAGE_PIXELS"] = str(2**64)
+os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "protocol_whitelist;file,rtp,udp"
+
+# Import the other necessary libraries after setting the environment variables
+
 import streamlit as st
 import numpy as np
 from PIL import Image
+#import cv2 
 
-def convert_bin_to_images(binary_data):
-    try:
-        # Convert binary data to a numpy array
-        np_array = np.frombuffer(binary_data, dtype=np.uint8)
+def convert_video_to_binary(video_file):
+    binary_data = video_file.read()
+    return binary_data
 
-        # Assuming the data represents images, you can reshape it to a suitable shape (e.g., [num_images, height, width, channels])
-        # Replace 'num_images', 'height', 'width', and 'channels' with the actual values based on your binary data format.
-        # For example, if it's a single image with shape (height, width, channels), you can use np_array.reshape((height, width, channels))
-        images = np_array.reshape([num_images, height, width, channels])
+def get_video_frames(binary_data):
+    # Convert binary data to numpy array
+    np_array = np.frombuffer(binary_data, dtype=np.uint8)
 
-        # Convert numpy arrays to PIL images
-        pil_images = [Image.fromarray(image) for image in images]
+    # Read the video from the numpy array
+    video = cv2.imdecode(np_array, cv2.IMREAD_UNCHANGED)
 
-        return pil_images
-    except Exception as e:
-        st.error(f"Error occurred: {e}")
+    # Get frames per second (FPS) of the video
+    fps = video.get(cv2.CAP_PROP_FPS)
+
+    # Extract one frame per second
+    frame_interval = int(fps)  # Retrieve one frame per second
+    frames = [Image.fromarray(frame) for i, frame in enumerate(video) if i % frame_interval == 0]
+
+    return frames
 
 def main():
-    st.title("Binary File to Images Converter")
-    uploaded_file = st.file_uploader("Upload a binary file", type=["bin"])
+    st.title("Video to Frames Converter")
 
-    if uploaded_file is not None:
-        # Read binary data from the uploaded file
-        binary_data = uploaded_file.getvalue()
+    # File uploader to choose a video file from the local machine
+    video_file = st.file_uploader("Choose a video file", type=["mp4", "avi", "mkv"])
 
-        # Convert binary data to images
-        images = convert_bin_to_images(binary_data)
+    if video_file is not None:
+        # Convert the video to binary data
+        binary_data = convert_video_to_binary(video_file)
 
-        # Display the images
-        for i, image in enumerate(images):
-            st.image(image, caption=f"Image {i+1}", use_column_width=True)
+        # Get frames from the video
+        frames = get_video_frames(binary_data)
+
+        # Display the frames
+        for i, frame in enumerate(frames):
+            st.image(frame, caption=f"Frame {i+1}", use_column_width=True)
 
 if __name__ == "__main__":
     main()
