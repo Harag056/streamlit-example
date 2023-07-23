@@ -1,8 +1,7 @@
 import streamlit as st
 
 def convert_video_to_binary(video_file):
-    with open(video_file, 'rb') as file:
-        binary_data = file.read()
+    binary_data = video_file.read()
     return binary_data
 
 def main():
