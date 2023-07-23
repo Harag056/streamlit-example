@@ -1,8 +1,6 @@
 import streamlit as st
-import snowflake.connector
-from PIL import Image
-import io
 import cv2
+from PIL import Image
 
 uploaded_file = st.file_uploader("Upload a video file", type=["mp4"])
 
