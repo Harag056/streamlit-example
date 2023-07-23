@@ -1,16 +1,17 @@
 import streamlit as st
-import requests
+import landingai
 
-url = "https://predict.app.landing.ai/inference/v1/predict?endpoint_id=456de868-464d-45e3-8f6a-8d9a8e1301ab"
+def upload_images():
+    # Get the images from the user.
+    images = st.file_uploader("Upload images", multiple=True)
 
-payload = {}
-files=[
-  ('file',('1644269774_vehicles.jpg',open('1644269774_vehicles.jpg','rb'),'image/jpeg'))
-]
-headers = {
-  'apikey': 'land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O'
-}
+    # Upload the images to Landing AI.
+    for image in images:
+        landingai.upload_image(image)
 
-response = requests.request("POST", url, headers=headers, data=payload, files=files)
+# Create a button to upload the images.
+st.button("Upload Images", on_click=upload_images)
 
-print(response.text)
+# Run the Streamlit app.
+if __name__ == "__main__":
+    st.run()
