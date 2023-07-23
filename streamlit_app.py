@@ -1,40 +1,27 @@
 import streamlit as st
-import numpy as np
-from PIL import Image
 
-def convert_bin_to_images(binary_data):
-    try:
-        # Convert binary data to a numpy array
-        np_array = np.frombuffer(binary_data, dtype=np.uint8)
-
-        # Assuming the data represents images, you can reshape it to a suitable shape (e.g., [num_images, height, width, channels])
-        # Replace 'num_images', 'height', 'width', and 'channels' with the actual values based on your binary data format.
-        # For example, if it's a single image with shape (height, width, channels), you can use np_array.reshape((height, width, channels))
-        images = np_array.reshape([num_images, height, width, channels])
-
-        # Convert numpy arrays to PIL images
-        pil_images = [Image.fromarray(image) for image in images]
-
-        return pil_images
-    except Exception as e:
-        st.error(f"Error occurred: {e}")
-        return None
+def convert_video_to_binary(video_file):
+    with open(video_file, 'rb') as file:
+        binary_data = file.read()
+    return binary_data
 
 def main():
-    st.title("Binary File to Images Converter")
-    uploaded_file = st.file_uploader("Upload a binary file", type=["bin"])
+    st.title("Video to Binary File Converter")
 
-    if uploaded_file is not None:
-        # Read binary data from the uploaded file
-        binary_data = uploaded_file.getvalue()
+    # File uploader to choose a video file from the local machine
+    video_file = st.file_uploader("Choose a video file", type=["mp4", "avi", "mkv"])
 
-        # Convert binary data to images
-        images = convert_bin_to_images(binary_data)
+    if video_file is not None:
+        # Convert the video to binary data
+        binary_data = convert_video_to_binary(video_file)
 
-        # Display the images if conversion is successful
-        if images:
-            for i, image in enumerate(images):
-                st.image(image, caption=f"Image {i+1}", use_column_width=True)
+        # Provide a link to download the binary file
+        st.markdown(get_binary_file_download_link(binary_data), unsafe_allow_html=True)
+
+def get_binary_file_download_link(binary_data):
+    # Function to create a download link for binary data
+    href = f'<a href="data:video/mp4;base64,{binary_data}" download="video_binary_file.bin">Download Binary File</a>'
+    return href
 
 if __name__ == "__main__":
     main()
