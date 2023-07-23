@@ -9,17 +9,20 @@
 import streamlit as st
 import requests
 
-# Define the curl command
-curl_command = "curl --location --request POST 'https://predict.app.landing.ai/inference/v1/predict?endpoint_id=5bc96d69-6328-410f-83e2-eb3b5d97ad29' \
-     --header 'Content-Type: multipart/form-data' \
-     --header 'apikey: land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O' \
-     --form 'file=@\"YOUR_IMAGE\"'"
+url = "https://predict.app.landing.ai/inference/v1/predict?endpoint_id=456de868-464d-45e3-8f6a-8d9a8e1301ab"
 
-# Execute the curl command
-response = requests.get(curl_command)
+payload = {}
+files=[
+  ('file',('1644269774_vehicles.jpg',open('og9uHBD8X/1644269774_vehicles.jpg','rb'),'image/jpeg'))
+]
+headers = {
+  'apikey': 'land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O'
+}
 
-# Print the response
-st.write(response.text)
+response = requests.request("POST", url, headers=headers, data=payload, files=files)
+
+print(response.text)
+
 
 
 # LANDING_AI_API_KEY = "land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O"
