@@ -49,7 +49,7 @@ def main():
         if len(filtered_predictions) > 0:
             st.write("Predictions meeting the confidence threshold:")
             for pred in filtered_predictions:
-                st.write(f"Label: {pred['label']}, Confidence: {pred['confidence']:.2f}")
+                st.write(f"Label: {pred['labelName']}, Confidence: {pred['score']:.2f}")
         else:
             st.write("No predictions meet the confidence threshold.")
 
