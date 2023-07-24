@@ -4,9 +4,9 @@ import numpy as np
 import tempfile
 import os
 
-def read_video_frames(video_file, fps):
+def read_video_frames(binary_data, fps):
     temp_file = tempfile.NamedTemporaryFile(delete=False)
-    temp_file.write(video_file.read())
+    temp_file.write(binary_data)
     temp_file.close()
 
     video = cv2.VideoCapture(temp_file.name)
@@ -38,22 +38,20 @@ def read_video_frames(video_file, fps):
 def main():
     st.title("Video to Frames Converter")
 
-    # File uploader to choose a video file from the local machine
-    video_file = st.file_uploader("Choose a video file", type=["mp4", "avi", "mkv"])
+    # Binary uploader to choose a video file in binary format
+    binary_file = st.file_uploader("Choose a video file in binary format", type=["bin"])
 
-    if video_file is not None:
+    if binary_file is not None:
         # Get desired frames per second using a slider
         desired_fps = st.slider("Select frames per second:", min_value=1, max_value=30, value=10)
 
-        # Convert the video to frames and store them in an array
-        frames = read_video_frames(video_file, desired_fps)
+        # Convert the binary file to frames and store them in an array
+        binary_data = binary_file.getvalue()
+        frames = read_video_frames(binary_data, desired_fps)
 
-        st.write(f"Number of frames extracted: {len(frames)}")
         # Display the frames one by one
         for i, frame in enumerate(frames):
             st.image(frame, caption=f"Frame {i+1}", use_column_width=True)
-
-        # You can now use the frames as desired (e.g., display them, process them, etc.)
 
 if __name__ == "__main__":
     main()
