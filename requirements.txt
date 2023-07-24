@@ -1,5 +1,4 @@
-altair
-pandas
 streamlit
-opencv-python-headless
+streamlit-image-select
+landingai
 plotly
