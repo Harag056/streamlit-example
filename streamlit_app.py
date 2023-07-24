@@ -3,10 +3,12 @@ import snowflake.connector
 from PIL import Image
 import io
 import cv2
+import tempfile
+
 
 
 def Connection():
-    st.title("Snowflake Connection App")
+    st.title("Connection App")
 
     #Input fields for Snowflake connection parameters
     snowflake_account = st.text_input("Snowflake Account", "rz20203.central-india.azure")
@@ -40,11 +42,46 @@ def Connection():
     
 
 
-def about():
-    st.title("About Us")
-    st.write("This is the About Us page content.")
+def upload():
+    def save_uploaded_file(uploaded_file):
+        with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+            temp_file.write(uploaded_file.read())
+            return temp_file.name
+        
+    uploaded_file = st.file_uploader("Upload a video file", type=["mp4"])
 
-def contact():
+    if uploaded_file is not None:
+        # Save the uploaded file to a temporary location
+        temp_video_path = save_uploaded_file(uploaded_file)
+        
+        # Read the video file using OpenCV VideoCapture
+        video_capture = cv2.VideoCapture(temp_video_path)
+        
+        # Check if the video is opened successfully
+        if not video_capture.isOpened():
+            st.error("Error: Unable to open the video file.")
+        else:
+            st.success("Video file opened successfully.")
+    
+            # Read and display each frame of the video
+            while True:
+                ret, frame = video_capture.read()
+    
+                if not ret:
+                    break
+    
+                # Convert the frame from BGR to RGB
+                frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    
+                # Display the frame using Streamlit
+                st.image(frame_rgb, channels="RGB", use_column_width=True)
+    
+    #     # Release the video capture object and close the video file
+    #     video_capture.release()
+
+
+
+def inference():
     st.title("Contact Us")
     st.write("This is the Contact Us page content.")
 
@@ -52,14 +89,14 @@ def main():
 
     # Create a sidebar with menu options
     st.sidebar.title("Menu")
-    menu = st.sidebar.radio("", ("Connections Details", "About", "Contact"))
+    menu = st.sidebar.radio("", ("Connections Details", "Upload Image", "Run Inference"))
 
     if menu == "Connections Details":
         Connection()
-    elif menu == "About":
-        about()
-    elif menu == "Contact":
-        contact()
+    elif menu == "Upload Image":
+        upload()
+    elif menu == "Run Inference":
+        inference()
 
 if __name__ == "__main__":
     main()
