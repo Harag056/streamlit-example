@@ -26,7 +26,6 @@ def Connection():
             database=snowflake_database,
             schema=snowflake_schema
         )
-        return conn
         
     if st.button("Connect"):
         try:
