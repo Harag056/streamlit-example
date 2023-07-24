@@ -4,16 +4,21 @@ import requests
 # Replace 'YOUR_LANDING_AI_API_KEY' with your actual Landing AI API key
 LANDING_AI_API_KEY = 'land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O'
 
-LANDING_AI_UPLOAD_URL = 'https://predict.app.landing.ai/inference/v1/predict?endpoint_id=5bc96d69-6328-410f-83e2-eb3b5d97ad29'
+#LANDING_AI_UPLOAD_URL = 'https://predict.app.landing.ai/inference/v1/predict?endpoint_id=5bc96d69-6328-410f-83e2-eb3b5d97ad29'
+LANDING_AI_UPLOAD_URL = "https://predict.app.landing.ai/inference/v1/predict?endpoint_id=5bc96d69-6328-410f-83e2-eb3b5d97ad29"
 
 def upload_image_to_landing_ai(image_path):
     headers = {
-        'Authorization': f'ApiKey {LANDING_AI_API_KEY}',
+        'apikey': 'land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O'
     }
-
-    files = {'file': open(image_path, 'rb')}
-
-    response = requests.post(LANDING_AI_UPLOAD_URL, headers=headers, files=files)
+    payload = {}
+    files = {'file': ('image_path',open('image_path','rb'),'image/jpeg')}
+    
+    
+    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+    
+    print(response.text)
+    #response = requests.post(LANDING_AI_UPLOAD_URL, headers=headers, files=files)
 
     return response.json()
 
