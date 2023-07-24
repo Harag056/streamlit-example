@@ -31,7 +31,7 @@ def Connection():
         try:
             conn = connect_to_snowflake()
             st.success("Connected to Snowflake")
-            conn.close()
+            #conn.close()
         except Exception as e:
             st.error(f"Error connecting to Snowflake: {str(e)}")
             return
