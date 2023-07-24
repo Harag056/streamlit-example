@@ -97,7 +97,7 @@ def main():
             desired_fps = st.slider("Select frames per second:", min_value=1, max_value=30, value=10)
     
             # Convert the video to frames and store them in an array
-            frames = read_video_frames(video_file, desired_fps)
+            frames = upload(video_file, desired_fps)
     
             st.write(f"Number of frames extracted: {len(frames)}")
             # Display the frames one by one
