@@ -32,7 +32,7 @@ def main():
 
         # Upload the image to Landing AI
         response_data = upload_image_to_landing_ai('temp_image.jpg')
-
+        response_data
         # Process the response from Landing AI and display the result
         if 'prediction' in response_data:
             st.write("Prediction results from Landing AI:")
