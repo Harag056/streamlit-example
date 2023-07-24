@@ -10,7 +10,7 @@ def Connection():
 
     #Input fields for Snowflake connection parameters
     snowflake_account = st.text_input("Snowflake Account", "rz20203.central-india.azure")
-    snowflake_user = st.text_input("User", "TESTUSER")
+    snowflake_username = st.text_input("User", "TESTUSER")
     snowflake_password = st.text_input("Password", "Test@123", type="password")
     snowflake_warehouse = st.text_input("Warehouse", "COMPUTE_WH")
     snowflake_database = st.text_input("Database", "LandingAI_DB")
