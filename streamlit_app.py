@@ -18,7 +18,7 @@ def Connection():
     snowflake_warehouse = st.text_input("Warehouse", "COMPUTE_WH")
     snowflake_database = st.text_input("Database", "LandingAI_DB")
     snowflake_schema = st.text_input("Schema", "Raw")
-    st.write("Snowflake Connection Details")
+    st.write("LandingAI Connection Details")
     landingai_api_key = st.text_input("Api Key", "land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O", type="password")
     landinai_endpoint_id = st.text_input("EndpointId", "5bc96d69-6328-410f-83e2-eb3b5d97ad29")
     # Function to connect to Snowflake
