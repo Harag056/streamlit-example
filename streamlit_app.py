@@ -31,12 +31,13 @@ def Connection():
         try:
             conn = connect_to_snowflake()
             st.success("Connected to Snowflake")
+            conn.close()
         except Exception as e:
             st.error(f"Error connecting to Snowflake: {str(e)}")
             return
 
     # Close the Snowflake connection when the app is closed
-    conn.close()
+    
 
 
 def about():
