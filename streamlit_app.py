@@ -18,7 +18,6 @@ def main():
     # Create a sidebar with menu options
     st.sidebar.title("Menu")
     menu = st.sidebar.radio("", ("Home", "About", "Contact"))
-    menu = st.sidebar.selectbox("Select an option:", ("Home", "About", "Contact"))
 
     if menu == "Connections Details":
         Connection()
