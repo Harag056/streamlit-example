@@ -12,9 +12,9 @@ def upload_image_to_landing_ai(image_path):
         'apikey': 'land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O'
     }
     payload = {}
-    files = {'file': ('image_path',open('image_path','rb'),'image/jpeg')}
+    files = {'file': (image_path,open(image_path,'rb'),'image/jpeg')}
     
-    
+    image_path
     response = requests.request("POST", url, headers=headers, data=payload, files=files)
     
     print(response.text)
