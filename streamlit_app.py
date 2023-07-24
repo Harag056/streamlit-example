@@ -41,8 +41,8 @@ def main():
        
         # Set the confidence threshold using a slider
         confidence_threshold = st.slider("Set Confidence Threshold", min_value=0.0, max_value=1.0, value=0.7, step=0.01)
-        #filtered_predictions = [prediction["score"] for prediction in response_data["backbonepredictions"].values() >= confidence_threshold]
-        filtered_predictions = [prediction["score"] for prediction in response_data["backbonepredictions"] if prediction["score"] >= confidence_threshold]
+        filtered_predictions = [ pred for pred in response_data["backbonepredictions"].values() if pred["score"] >= confidence_threshold]
+        #filtered_predictions = [prediction["score"] for prediction in response_data["backbonepredictions"].values() if prediction["score"] >= confidence_threshold]
 
         filtered_predictions
 
