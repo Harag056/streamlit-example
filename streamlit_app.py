@@ -1,6 +1,6 @@
 import streamlit as st
 
-def home():
+def Connection():
     st.title("Welcome to the Home Page!")
     st.write("This is the home page content.")
 
@@ -16,10 +16,12 @@ def main():
     st.title("Streamlit App with Menu Bars")
 
     # Create a sidebar with menu options
+     st.sidebar.title("Menu")
+    menu = st.sidebar.radio("", ("Home", "About", "Contact"))
     menu = st.sidebar.selectbox("Select an option:", ("Home", "About", "Contact"))
 
-    if menu == "Home":
-        home()
+    if menu == "Connections Details":
+        Connection()
     elif menu == "About":
         about()
     elif menu == "Contact":
