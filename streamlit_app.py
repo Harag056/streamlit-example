@@ -1,9 +1,15 @@
 import streamlit as st
 import cv2
 import numpy as np
+import tempfile
+import os
 
 def read_video_frames(video_file, fps):
-    video = cv2.VideoCapture(video_file)
+    temp_file = tempfile.NamedTemporaryFile(delete=False)
+    temp_file.write(video_file.read())
+    temp_file.close()
+
+    video = cv2.VideoCapture(temp_file.name)
 
     # Get frames per second (FPS) of the video
     original_fps = video.get(cv2.CAP_PROP_FPS)
@@ -26,6 +32,7 @@ def read_video_frames(video_file, fps):
         frame_count += 1
 
     video.release()
+    os.unlink(temp_file.name)
     return frames
 
 def main():
