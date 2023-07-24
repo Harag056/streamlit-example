@@ -16,7 +16,7 @@ def main():
     st.title("Streamlit App with Menu Bars")
 
     # Create a sidebar with menu options
-     st.sidebar.title("Menu")
+    st.sidebar.title("Menu")
     menu = st.sidebar.radio("", ("Home", "About", "Contact"))
     menu = st.sidebar.selectbox("Select an option:", ("Home", "About", "Contact"))
 
