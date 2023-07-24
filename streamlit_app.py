@@ -82,25 +82,24 @@ def upload(video_file, fps):
 
 
 
-def inference():
-    # Replace 'YOUR_LANDING_AI_API_KEY' with your actual Landing AI API key
+def inference(image_path):
+        # Replace 'YOUR_LANDING_AI_API_KEY' with your actual Landing AI API key
     LANDING_AI_API_KEY = landingai_api_key
     LANDING_AI_UPLOAD_URL = "https://predict.app.landing.ai/inference/v1/predict?endpoint_id="+landinai_endpoint_id+"\""
     
-    def upload_image_to_landing_ai(image_path):
-        headers = {
-            'apikey': LANDING_AI_API_KEY
-        }
-        payload = {}
-        files = {'file': (image_path,open(image_path,'rb'),'image/jpeg')}
-        
-        image_path
-        response = requests.request("POST", LANDING_AI_UPLOAD_URL, headers=headers, data=payload, files=files)
-        
-        print(response.text)
-        #response = requests.post(LANDING_AI_UPLOAD_URL, headers=headers, files=files)
+    headers = {
+        'apikey': LANDING_AI_API_KEY
+    }
+    payload = {}
+    files = {'file': (image_path,open(image_path,'rb'),'image/jpeg')}
     
-        return response.json()
+    image_path
+    response = requests.request("POST", LANDING_AI_UPLOAD_URL, headers=headers, data=payload, files=files)
+    
+    print(response.text)
+    #response = requests.post(LANDING_AI_UPLOAD_URL, headers=headers, files=files)
+
+    return response.json()
 
 def main():
 
@@ -138,7 +137,7 @@ def main():
             st.image(image_file, caption="Uploaded Image", use_column_width=True)
     
             # Upload the image to Landing AI
-            response_data = upload_image_to_landing_ai('temp_image.jpg')
+            response_data = inference('temp_image.jpg')
            
             # Set the confidence threshold using a slider
             confidence_threshold = st.slider("Set Confidence Threshold", min_value=0.0, max_value=1.0, value=0.7, step=0.01)
