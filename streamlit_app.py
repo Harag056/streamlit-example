@@ -84,8 +84,8 @@ def upload(video_file, fps):
 
 def inference(image_path):
         # Replace 'YOUR_LANDING_AI_API_KEY' with your actual Landing AI API key
-    LANDING_AI_API_KEY = landingai_api_key
-    LANDING_AI_UPLOAD_URL = "https://predict.app.landing.ai/inference/v1/predict?endpoint_id="+landinai_endpoint_id+"\""
+    LANDING_AI_API_KEY = "land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O"
+    LANDING_AI_UPLOAD_URL = "https://predict.app.landing.ai/inference/v1/predict?endpoint_id="5bc96d69-6328-410f-83e2-eb3b5d97ad29"
     
     headers = {
         'apikey': LANDING_AI_API_KEY
