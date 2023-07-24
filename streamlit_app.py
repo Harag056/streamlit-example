@@ -15,7 +15,7 @@ def upload_image_to_landing_ai(image_path):
     files = {'file': (image_path,open(image_path,'rb'),'image/jpeg')}
     
     image_path
-    response = requests.request("POST", url, headers=headers, data=payload, files=files)
+    response = requests.request("POST", LANDING_AI_UPLOAD_URL, headers=headers, data=payload, files=files)
     
     print(response.text)
     #response = requests.post(LANDING_AI_UPLOAD_URL, headers=headers, files=files)
