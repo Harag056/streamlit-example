@@ -38,11 +38,22 @@ def main():
         # Upload the image to Landing AI
         response_data = upload_image_to_landing_ai('temp_image.jpg')
         response_data
+        # Set the confidence threshold using a slider
+        confidence_threshold = st.slider("Set Confidence Threshold", min_value=0.0, max_value=1.0, value=0.7, step=0.01)
+        filtered_predictions = [pred for pred in response_data if pred["confidence"] >= confidence_threshold]
+
+        if len(filtered_predictions) > 0:
+            st.write("Predictions meeting the confidence threshold:")
+            for pred in filtered_predictions:
+                st.write(f"Label: {pred['label']}, Confidence: {pred['confidence']:.2f}")
+        else:
+            st.write("No predictions meet the confidence threshold.")
+
         # Process the response from Landing AI and display the result
-        if 'prediction' in response_data:
-            st.write("Prediction results from Landing AI:")
-            for prediction in response_data['prediction']:
-                st.write(f"Label: {prediction['label']}, Confidence: {prediction['confidence']:.2f}")
+        # if 'prediction' in response_data:
+        #     st.write("Prediction results from Landing AI:")
+        #     for prediction in response_data['prediction']:
+        #         st.write(f"Label: {prediction['label']}, Confidence: {prediction['confidence']:.2f}")
 
 if __name__ == "__main__":
     main()
