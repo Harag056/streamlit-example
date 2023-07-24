@@ -38,12 +38,10 @@ def main():
 
         # Upload the image to Landing AI
         response_data = upload_image_to_landing_ai('temp_image.jpg')
-        # Parse the JSON data
-        parsed_data = json.loads(response_data)
-        parsed_data
+       
         # Set the confidence threshold using a slider
         confidence_threshold = st.slider("Set Confidence Threshold", min_value=0.0, max_value=1.0, value=0.7, step=0.01)
-        filtered_predictions = [prediction["score"] for prediction in parsed_data["backbonepredictions"].values() >= confidence_threshold]
+        filtered_predictions = [prediction["score"] for prediction in response_data["backbonepredictions"].values() >= confidence_threshold]
         filtered_predictions
 
         if len(filtered_predictions) > 0:
