@@ -1,57 +1,43 @@
 import streamlit as st
-import cv2
-import numpy as np
-import tempfile
-import os
+import requests
 
-def read_video_frames(binary_data, fps):
-    temp_file = tempfile.NamedTemporaryFile(delete=False)
-    temp_file.write(binary_data)
-    temp_file.close()
+# Replace 'YOUR_LANDING_AI_API_KEY' with your actual Landing AI API key
+LANDING_AI_API_KEY = 'land_sk_0EJDSLM53NDshwkFBKbuYzIKv2g7oaUeQ1zXLhBC2AeQKXLj0O'
 
-    video = cv2.VideoCapture(temp_file.name)
+LANDING_AI_UPLOAD_URL = 'https://api.landing.ai/v1/vision/predict/'
 
-    # Get frames per second (FPS) of the video
-    original_fps = video.get(cv2.CAP_PROP_FPS)
+def upload_image_to_landing_ai(image_path):
+    headers = {
+        'Authorization': f'ApiKey {LANDING_AI_API_KEY}',
+    }
 
-    # Calculate frame interval to get desired FPS
-    frame_interval = int(original_fps / fps)
+    files = {'file': open(image_path, 'rb')}
 
-    frames = []
-    frame_count = 0
+    response = requests.post(LANDING_AI_UPLOAD_URL, headers=headers, files=files)
 
-    while True:
-        ret, frame = video.read()
-
-        if not ret:
-            break
-
-        if frame_count % frame_interval == 0:
-            frames.append(frame)
-
-        frame_count += 1
-
-    video.release()
-    os.unlink(temp_file.name)
-    return frames
+    return response.json()
 
 def main():
-    st.title("Video to Frames Converter")
+    st.title("Upload Image to Landing AI")
 
-    # Binary uploader to choose a video file in binary format
-    binary_file = st.file_uploader("Choose a video file in binary format", type=["bin"])
+    # File uploader to choose an image file from the local machine
+    image_file = st.file_uploader("Choose an image file", type=["jpg", "jpeg", "png"])
 
-    if binary_file is not None:
-        # Get desired frames per second using a slider
-        desired_fps = st.slider("Select frames per second:", min_value=1, max_value=30, value=10)
+    if image_file is not None:
+        # Save the uploaded image to a temporary file
+        with open('temp_image.jpg', 'wb') as f:
+            f.write(image_file.read())
 
-        # Convert the binary file to frames and store them in an array
-        binary_data = binary_file.getvalue()
-        frames = read_video_frames(binary_data, desired_fps)
+        st.image(image_file, caption="Uploaded Image", use_column_width=True)
 
-        # Display the frames one by one
-        for i, frame in enumerate(frames):
-            st.image(frame, caption=f"Frame {i+1}", use_column_width=True)
+        # Upload the image to Landing AI
+        response_data = upload_image_to_landing_ai('temp_image.jpg')
+
+        # Process the response from Landing AI and display the result
+        if 'prediction' in response_data:
+            st.write("Prediction results from Landing AI:")
+            for prediction in response_data['prediction']:
+                st.write(f"Label: {prediction['label']}, Confidence: {prediction['confidence']:.2f}")
 
 if __name__ == "__main__":
     main()
