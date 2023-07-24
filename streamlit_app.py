@@ -49,7 +49,6 @@ def contact():
     st.write("This is the Contact Us page content.")
 
 def main():
-    st.title("Streamlit App with Menu Bars")
 
     # Create a sidebar with menu options
     st.sidebar.title("Menu")
