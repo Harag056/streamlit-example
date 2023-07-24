@@ -1,8 +1,45 @@
 import streamlit as st
+import snowflake.connector
+from PIL import Image
+import io
+import cv2
+
 
 def Connection():
-    st.title("Welcome to the Home Page!")
-    st.write("This is the home page content.")
+    st.title("Snowflake Connection App")
+
+    Input fields for Snowflake connection parameters
+    snowflake_account = st.text_input("Snowflake Account", "rz20203.central-india.azure")
+    snowflake_user = st.text_input("User", "TESTUSER")
+    snowflake_password = st.text_input("Password", "Test@123", type="password")
+    snowflake_warehouse = st.text_input("Warehouse", "COMPUTE_WH")
+    snowflake_database = st.text_input("Database", "LandingAI_DB")
+    snowflake_schema = st.text_input("Schema", "Raw")
+
+    # Function to connect to Snowflake
+    def connect_to_snowflake():
+        conn = snowflake.connector.connect(
+            user=snowflake_username,
+            password=snowflake_password,
+            account=snowflake_account,
+            warehouse=snowflake_warehouse,
+            database=snowflake_database,
+            schema=snowflake_schema
+        )
+        return conn
+    
+    try:
+        conn = connect_to_snowflake()
+        st.success("Connected to Snowflake")
+    except Exception as e:
+        st.error(f"Error connecting to Snowflake: {str(e)}")
+        return
+
+    
+    # Close the Snowflake connection when the app is closed
+    st.experimental_rerun_on_finish(connect_to_snowflake)
+    conn.close()
+
 
 def about():
     st.title("About Us")
@@ -17,7 +54,7 @@ def main():
 
     # Create a sidebar with menu options
     st.sidebar.title("Menu")
-    menu = st.sidebar.radio("", ("Home", "About", "Contact"))
+    menu = st.sidebar.radio("", ("Connections Details", "About", "Contact"))
 
     if menu == "Connections Details":
         Connection()
