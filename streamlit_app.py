@@ -4,7 +4,8 @@ from PIL import Image
 import io
 import cv2
 import tempfile
-
+import numpy as np
+import os
 
 
 def Connection():
@@ -41,43 +42,37 @@ def Connection():
     # Close the Snowflake connection when the app is closed
     
 
+    
+def upload(video_file, fps):
+    temp_file = tempfile.NamedTemporaryFile(delete=False)
+    temp_file.write(video_file.read())
+    temp_file.close()
 
-def upload():
-    def save_uploaded_file(uploaded_file):
-        with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-            temp_file.write(uploaded_file.read())
-            return temp_file.name
-        
-    uploaded_file = st.file_uploader("Upload a video file", type=["mp4"])
+    video = cv2.VideoCapture(temp_file.name)
 
-    if uploaded_file is not None:
-        # Save the uploaded file to a temporary location
-        temp_video_path = save_uploaded_file(uploaded_file)
-        
-        # Read the video file using OpenCV VideoCapture
-        video_capture = cv2.VideoCapture(temp_video_path)
-        
-        # Check if the video is opened successfully
-        if not video_capture.isOpened():
-            st.error("Error: Unable to open the video file.")
-        else:
-            st.success("Video file opened successfully.")
-    
-            # Read and display each frame of the video
-            while True:
-                ret, frame = video_capture.read()
-    
-                if not ret:
-                    break
-    
-                # Convert the frame from BGR to RGB
-                frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    
-                # Display the frame using Streamlit
-                st.image(frame_rgb, channels="RGB", use_column_width=True)
-    
-    #     # Release the video capture object and close the video file
-    #     video_capture.release()
+    # Get frames per second (FPS) of the video
+    original_fps = video.get(cv2.CAP_PROP_FPS)
+
+    # Calculate frame interval to get desired FPS
+    frame_interval = int(original_fps / fps)
+
+    frames = []
+    frame_count = 0
+
+    while True:
+        ret, frame = video.read()
+
+        if not ret:
+            break
+
+        if frame_count % frame_interval == 0:
+            frames.append(frame)
+
+        frame_count += 1
+
+    video.release()
+    os.unlink(temp_file.name)
+    return frames
 
 
 
@@ -94,7 +89,20 @@ def main():
     if menu == "Connections Details":
         Connection()
     elif menu == "Upload Image":
-        upload()
+        # File uploader to choose a video file from the local machine
+        video_file = st.file_uploader("Choose a video file", type=["mp4", "avi", "mkv"])
+    
+        if video_file is not None:
+            # Get desired frames per second using a slider
+            desired_fps = st.slider("Select frames per second:", min_value=1, max_value=30, value=10)
+    
+            # Convert the video to frames and store them in an array
+            frames = read_video_frames(video_file, desired_fps)
+    
+            st.write(f"Number of frames extracted: {len(frames)}")
+            # Display the frames one by one
+            for i, frame in enumerate(frames):
+                st.image(frame, caption=f"Frame {i+1}", use_column_width=True)
     elif menu == "Run Inference":
         inference()
 
