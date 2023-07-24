@@ -49,6 +49,9 @@ def main():
         frames = read_video_frames(video_file, desired_fps)
 
         st.write(f"Number of frames extracted: {len(frames)}")
+        # Display the frames one by one
+        for i, frame in enumerate(frames):
+            st.image(frame, caption=f"Frame {i+1}", use_column_width=True)
 
         # You can now use the frames as desired (e.g., display them, process them, etc.)
 
