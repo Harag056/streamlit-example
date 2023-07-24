@@ -8,7 +8,7 @@ import cv2
 def Connection():
     st.title("Snowflake Connection App")
 
-    Input fields for Snowflake connection parameters
+    #Input fields for Snowflake connection parameters
     snowflake_account = st.text_input("Snowflake Account", "rz20203.central-india.azure")
     snowflake_user = st.text_input("User", "TESTUSER")
     snowflake_password = st.text_input("Password", "Test@123", type="password")
