@@ -27,8 +27,8 @@ def Connection():
             schema=snowflake_schema
         )
         return conn
-
-     if st.button("Connect"):
+        
+    if st.button("Connect"):
         try:
             conn = connect_to_snowflake()
             st.success("Connected to Snowflake")
