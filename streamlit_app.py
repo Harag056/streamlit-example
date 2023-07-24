@@ -35,9 +35,7 @@ def Connection():
         st.error(f"Error connecting to Snowflake: {str(e)}")
         return
 
-    
     # Close the Snowflake connection when the app is closed
-    st.experimental_rerun_on_finish(connect_to_snowflake)
     conn.close()
 
 
