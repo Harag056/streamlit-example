@@ -1,5 +1,4 @@
 altair
 pandas
 streamlit
-azure-ai-vision
 opencv-python
