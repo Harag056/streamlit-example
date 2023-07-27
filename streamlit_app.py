@@ -1,5 +1,6 @@
 import os
 import cv2
+from PIL import Image
 import json
 import streamlit as st
 import azure.ai.vision as sdk
