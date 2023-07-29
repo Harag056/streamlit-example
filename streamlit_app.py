@@ -159,7 +159,7 @@ def main():
     # if not os.path.isdir(folder_path):
     #     isdir = os.path.isdir(folder_path)
     #     st.error(isdir)
-        return
+    return
 
     if st.button("Analyze Images"):
         # Process each image in the folder
