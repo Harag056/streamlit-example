@@ -146,7 +146,7 @@ def main():
     st.title("Azure Cognitive Services Vision API Image Analysis")
 
     # Folder selection
-    folder_path = st.text_input("Enter the path to the folder containing images:", "C:\\Users\\HarishSankaranarayan\\Desktop\\")
+    folder_path = st.text_input("Enter the path to the folder containing images:", "C:\\Users\\HarishSankaranarayan\\Desktop\\test")
     if not os.path.isdir(folder_path):
         st.error("Invalid directory path.")
         return
