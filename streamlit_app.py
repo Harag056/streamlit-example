@@ -161,8 +161,8 @@ def main():
         st.write(f"Selected file: {uploaded_file}")
 
         # Display the file location (path)
-        file_location = uploaded_file.name
-        st.write(f"File location: {file_location}")
+        file_path = get_file_path(uploaded_file)
+        st.write(f"File path: {file_path}")
     #folder_path = st.text_input("Enter the path to the folder containing images:", "C:\\Users\\HarishSankaranarayan\\Desktop\\test\\")
     # if not os.path.isdir(folder_path):
     #     isdir = os.path.isdir(folder_path)
