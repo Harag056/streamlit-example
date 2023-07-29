@@ -146,7 +146,11 @@ def process_image(image_path):
         print("   Error code: {}".format(error_details.error_code))
         print("   Error message: {}".format(error_details.message))
 
-
+def get_file_path(uploaded_file):
+    # Use the 'os' module to get the full path of the file
+    cwd = os.getcwd()
+    file_path = os.path.join(cwd, uploaded_file.name)
+    return file_path
 
 def main():
     st.title("Azure Cognitive Services Vision API Image Analysis")
