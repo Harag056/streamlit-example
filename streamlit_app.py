@@ -160,7 +160,7 @@ def main():
     #folder_path = st.file_uploader("Upload a folder", type="folder")
     #st.error(folder_path)
     uploaded_file = st.file_uploader("Upload a file", type=['.png', '.jpg', '.jpeg', '.gif'])
-
+    file_path=''
     if uploaded_file:
         st.write(f"Selected file: {uploaded_file}")
 
