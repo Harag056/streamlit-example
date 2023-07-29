@@ -154,7 +154,7 @@ def main():
     # Folder selection
     folder_path = st.text_input("Enter the path to the folder containing images:", "C:\\Users\\HarishSankaranarayan\\Desktop\\test\\")
     if not os.path.isdir(folder_path):
-        isdir = os.path.isdir(folder_path)
+        isdir = os.path.isdir("C:\\Users\\HarishSankaranarayan\\Desktop\\test\\")
         st.error(isdir)
         return
 
