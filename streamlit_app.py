@@ -158,7 +158,7 @@ def main():
     uploaded_file = st.file_uploader("Upload a file", type=['.png', '.jpg', '.jpeg', '.gif'])
 
     if uploaded_file:
-        st.write(f"Selected file: {uploaded_file.name}")
+        st.write(f"Selected file: {uploaded_file}")
 
         # Display the file location (path)
         file_location = uploaded_file.name
