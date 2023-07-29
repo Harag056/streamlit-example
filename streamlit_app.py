@@ -168,9 +168,9 @@ def main():
         file_path = get_file_path(uploaded_file)
         st.write(f"File path: {file_path}")
     #folder_path = st.text_input("Enter the path to the folder containing images:", "C:\\Users\\HarishSankaranarayan\\Desktop\\test\\")
-    # if not os.path.isdir(folder_path):
-    #     isdir = os.path.isdir(folder_path)
-    #     st.error(isdir)
+    if not os.path.isdir(file_path):
+        isdir = os.path.isdir(file_path)
+        st.error(isdir)
     return
 
     if st.button("Analyze Images"):
