@@ -176,10 +176,11 @@ def main():
     if st.button("Analyze Images"):
         # Process each image in the folder
         st.text("Processing images... Please wait.")
-        for image_file in os.listdir(folder_path):
-            if image_file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
-                image_path = os.path.join(folder_path, image_file)
-                process_image(image_path)
+        # for image_file in os.listdir(folder_path):
+        #     if image_file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+        #         image_path = os.path.join(folder_path, image_file)
+        #         process_image(image_path)
+        process_image(file_path)
         st.text("Image analysis completed.")
 
         # Save output JSON
