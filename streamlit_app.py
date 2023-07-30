@@ -181,6 +181,8 @@ def main():
 
         # Display the processed images
     image_files = os.listdir(os.path.join(folder_path, "AI"))
+    st.write(image_files)
+    return
     for image_file in image_files:
         if image_file.endswith(("png", "jpg", "jpeg", "gif")):
             st.write(image_file)
