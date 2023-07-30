@@ -186,8 +186,8 @@ def main():
             st.write(image_file)
             image_path = os.path.join(folder_path, "AI", image_file)
             st.write(image_path)
-            #st.image(image_path,caption=image_file,use_column_width=True)
-            st.image("C:\\Users\\HarishSankaranarayan\\Desktop\\test\\1644269774_vehicles.jpg")
+            st.image(image_path,caption=image_file,use_column_width=True)
+            #st.image("C:\\Users\\HarishSankaranarayan\\Desktop\\test\\1644269774_vehicles.jpg")
 
 # Run the Streamlit app
 if __name__ == "__main__":
