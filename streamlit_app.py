@@ -167,7 +167,7 @@ def iterate_images_in_folder(folder_path):
 
 def display_images(image_path):
     images = annotated_path(image_path, "AI")
-    st.write(images)
+    st.write("hhh",images)
     
     for image_file in images:
         if image_file.endswith(("png", "jpg", "jpeg", "gif")):
