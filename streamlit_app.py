@@ -159,15 +159,30 @@ def main():
     #folder_path = st.sidebar.text_input("Enter the path to the folder:", "")
     #folder_path = st.file_uploader("Upload a folder", type="folder")
     #st.error(folder_path)
-    uploaded_file = st.file_uploader("Upload a file", type=['.png', '.jpg', '.jpeg', '.gif'])
-    file_path=''
-    if uploaded_file:
-        st.write(f"Selected file: {uploaded_file}")
+    uploaded_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg", "gif"])
+    # file_path=''
+    # if uploaded_file:
+    #     st.write(f"Selected file: {uploaded_file}")
 
-        # Display the file location (path)
-        file_path = get_file_path(uploaded_file)
-        st.write(f"File path: {file_path}")
-    folder_path = st.text_input("Enter the path to the folder containing images:", "C:\\Users\\HarishSankaranarayan\\Desktop\\test\\")
+    #     # Display the file location (path)
+    #     file_path = get_file_path(uploaded_file)
+    #     st.write(f"File path: {file_path}")
+    # folder_path = st.text_input("Enter the path to the folder containing images:", "C:\\Users\\HarishSankaranarayan\\Desktop\\test\\")
+    if uploaded_file is not None:
+    # Process the image using the provided code
+        process_image(uploaded_file)
+    
+        # Show the resulting image with bounding boxes
+        annotated_image = "AI/annotated_image.png"
+        st.image(annotated_image, use_column_width=True, caption="Annotated Image")
+    
+        # Show the extracted text from the image
+        json_file_path = os.path.join("AI", "output.json")
+        with open(json_file_path) as json_file:
+            data = json.load(json_file)
+            st.subheader("Extracted Text:")
+            for item in data:
+                st.write(item["detectedword"])
     # if not os.path.isdir(file_path):
     #     isdir = os.path.isdir(file_path)
     #     st.error(isdir)
