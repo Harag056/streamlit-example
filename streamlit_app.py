@@ -170,8 +170,8 @@ def main():
     # folder_path = st.text_input("Enter the path to the folder containing images:", "C:\\Users\\HarishSankaranarayan\\Desktop\\test\\")
     if uploaded_file is not None:
     # Process the image using the provided code
-        process_image(uploaded_file)
-    
+        #process_image(uploaded_file)
+        st.write(f"File path: {uploaded_file}")
         # Show the resulting image with bounding boxes
         annotated_image = "AI/annotated_image.png"
         st.image(annotated_image, use_column_width=True, caption="Annotated Image")
@@ -192,7 +192,7 @@ def main():
         # Process each image in the folder
         st.text("Processing images... Please wait.")
 
-        process_image(file_path)
+        process_image(uploaded_file)
         st.text("Image analysis completed.")
 
         # Save output JSON
