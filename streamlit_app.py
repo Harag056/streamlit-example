@@ -183,8 +183,8 @@ def main():
             json.dump(json_out, json_file)
 
         # Display the processed images
-    st.write(output_image)
-    image_files = os.listdir(output_image)
+    # st.write(output_image)
+    # image_files = os.listdir(output_image)
     
     # for image_file in image_files:
     #     if image_file.endswith(("png", "jpg", "jpeg", "gif")):
