@@ -190,7 +190,7 @@ def main():
         st.write("Image analysis completed!")
 
         # Save the JSON output to a file
-        json_output_path = os.path.join(folder_path, "AI", "output.json")
+        json_output_path = folder_path "AI\\", "output.json"
         with open(json_output_path, "w") as json_file:
             json.dump(json_out, json_file)
 
