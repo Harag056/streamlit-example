@@ -169,15 +169,15 @@ def main():
     folder_path = st.text_input("Select a folder", "C:\\Users\\HarishSankaranarayan\\Desktop\\test\\")
     #folder_path = st.file_uploader("Select a folder with images", type=["png", "jpg", "jpeg", "gif"])
         # Create a button to start image analysis
-    if st.button("Analyze Images"):
-        st.write("Processing images...")
-        iterate_images_in_folder(folder_path)
-        st.write("Image analysis completed!")
+    # if st.button("Analyze Images"):
+    #     st.write("Processing images...")
+    #     iterate_images_in_folder(folder_path)
+    #     st.write("Image analysis completed!")
 
-        # Save the JSON output to a file
-        json_output_path = os.path.join(folder_path, "AI", "output.json")
-        with open(json_output_path, "w") as json_file:
-            json.dump(json_out, json_file)
+    #     # Save the JSON output to a file
+    #     json_output_path = os.path.join(folder_path, "AI", "output.json")
+    #     with open(json_output_path, "w") as json_file:
+    #         json.dump(json_out, json_file)
 
         # Display the processed images
     image_files = os.listdir(os.path.join(folder_path, "AI"))
