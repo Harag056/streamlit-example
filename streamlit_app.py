@@ -2,7 +2,10 @@ import os
 import cv2
 import json
 import streamlit as st
-import azure.ai.vision as SDK
+import azure.ai.vision as sdk
+
+
+output_image=""
 
     # Load the Azure AI Vision SDK service options
 service_options = sdk.VisionServiceOptions(
