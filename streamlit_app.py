@@ -165,7 +165,7 @@ def iterate_images_in_folder(folder_path):
         process_image(image_path)
 
 
-def display_images():
+def display_images(image_path):
     images = annotated_path(image_path, "AI")
     st.write(images)
     
@@ -195,7 +195,7 @@ def main():
             json.dump(json_out, json_file)
 
         # Display the processed images
-    display_images()
+    display_images(folder_path)
     # image_files = annotated_path(image_path, "AI")
     # st.write(image_files)
     
