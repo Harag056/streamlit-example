@@ -150,9 +150,8 @@ def process_image(image_path):
 def iterate_images_in_folder(folder_path):
     # Check if the given path is a directory
     if not os.path.isdir(folder_path):
-        st.write("iterate_images_in_folder")
+        st.write("Invalid directory path.")
         return
-    st.write("Invalid directory path.")
     # List all the files in the directory
     file_list = os.listdir(folder_path)
     
