@@ -4,8 +4,6 @@ import json
 import streamlit as st
 import azure.ai.vision as SDK
 
-output_image=""
-
     # Load the Azure AI Vision SDK service options
 service_options = sdk.VisionServiceOptions(
         "https://bi3va.cognitiveservices.azure.com/",
