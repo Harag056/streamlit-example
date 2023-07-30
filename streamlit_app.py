@@ -2,7 +2,9 @@ import os
 import cv2
 import json
 import streamlit as st
-import azure.ai.vision as sdk
+import azure.ai.vision as SDK
+
+output_image=""
 
     # Load the Azure AI Vision SDK service options
 service_options = sdk.VisionServiceOptions(
@@ -180,15 +182,15 @@ def main():
             json.dump(json_out, json_file)
 
         # Display the processed images
-    #st.write(os.path.join(folder_path, "AI"))
-    image_files = os.listdir(folder_path+ "AI\\")
+    st.write(output_image)
+    image_files = os.listdir(output_image)
     
-    for image_file in image_files:
-        if image_file.endswith(("png", "jpg", "jpeg", "gif")):
-            st.write(image_file)
-            image_path = os.path.join(folder_path, "AI", image_file)
-            st.write(image_path)
-            st.image(image_path,caption=image_file,use_column_width=True)
+    # for image_file in image_files:
+    #     if image_file.endswith(("png", "jpg", "jpeg", "gif")):
+    #         st.write(image_file)
+    #         image_path = os.path.join(folder_path, "AI", image_file)
+    #         st.write(image_path)
+    #         st.image(image_path,caption=image_file,use_column_width=True)
             #st.image("C:\\Users\\HarishSankaranarayan\\Desktop\\test\\1644269774_vehicles.jpg")
 
 # Run the Streamlit app
