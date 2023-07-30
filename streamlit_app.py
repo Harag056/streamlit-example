@@ -164,6 +164,18 @@ def iterate_images_in_folder(folder_path):
         image_path = os.path.join(folder_path, image_file)
         process_image(image_path)
 
+
+def display_images():
+    image_files = annotated_path(image_path, "AI")
+    st.write(image_files)
+    
+    for image_file in image_files:
+        if image_file.endswith(("png", "jpg", "jpeg", "gif")):
+            st.write(image_file)
+            image_path = os.path.join(folder_path, "AI", image_file)
+            st.write(image_path)
+            st.image(image_path,caption=image_file,use_column_width=True)
+
 # Streamlit app code
 def main():
     st.title("Image Analysis with Azure Vision API")
@@ -183,9 +195,9 @@ def main():
             json.dump(json_out, json_file)
 
         # Display the processed images
-    
-    image_files = annotated_path(image_path, "AI")
-    st.write(image_files)
+    display_images()
+    # image_files = annotated_path(image_path, "AI")
+    # st.write(image_files)
     
     # for image_file in image_files:
     #     if image_file.endswith(("png", "jpg", "jpeg", "gif")):
