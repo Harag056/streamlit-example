@@ -180,8 +180,9 @@ def main():
     #         json.dump(json_out, json_file)
 
         # Display the processed images
+    st.write(os.path.join(folder_path, "AI"))
     image_files = os.listdir(os.path.join(folder_path, "AI"))
-    st.write(image_files)
+    
     return
     for image_file in image_files:
         if image_file.endswith(("png", "jpg", "jpeg", "gif")):
