@@ -183,8 +183,9 @@ def main():
             json.dump(json_out, json_file)
 
         # Display the processed images
-    # st.write(output_image)
-    # image_files = os.listdir(output_image)
+    
+    image_files = annotated_path(image_path, "AI")
+    st.write(image_files)
     
     # for image_file in image_files:
     #     if image_file.endswith(("png", "jpg", "jpeg", "gif")):
