@@ -86,7 +86,7 @@ def process_image(image_path):
     vision_source = sdk.VisionSource(filename=image_path)
     image_analyzer = sdk.ImageAnalyzer(service_options, vision_source, analysis_options)
     result = image_analyzer.analyze()
-
+    st.write("Entered:")
     if result.reason == sdk.ImageAnalysisResultReason.ANALYZED:
         st.write("Image height:", result.image_height)
         st.write("Image width:", result.image_width)
@@ -155,13 +155,14 @@ def iterate_images_in_folder(folder_path):
 
     # List all the files in the directory
     file_list = os.listdir(folder_path)
-
+    
     # Filter files to get only image files (you can add more extensions if needed)
     image_files = [f for f in file_list if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))]
 
     # Process each image
     for image_file in image_files:
         image_path = os.path.join(folder_path, image_file)
+        st.write("Processing:",image_file)
         process_image(image_path)
 
 
