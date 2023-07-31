@@ -9,8 +9,6 @@ output_image=""
 
     # Load the Azure AI Vision SDK service options
 service_options = sdk.VisionServiceOptions(
-        "https://bi3va.cognitiveservices.azure.com/",
-        "6667acbd346846a4abb0a5e36219de60"
     )
 analysis_options = sdk.ImageAnalysisOptions()
 analysis_options.features = (sdk.ImageAnalysisFeature.TEXT,)
@@ -179,7 +177,7 @@ def main():
     st.title("Image Analysis with Azure Vision API")
 
     # File uploader to select the folder with images
-    folder_path = st.text_input("Select a folder", "C:\\Users\\HarishSankaranarayan\\Desktop\\test\\")
+    folder_path = st.text_input("Select a folder", "")
     #folder_path = st.file_uploader("Select a folder with images", type=["png", "jpg", "jpeg", "gif"])
         # Create a button to start image analysis
     if st.button("Analyze Images"):
@@ -203,7 +201,7 @@ def main():
     #         image_path = os.path.join(folder_path, "AI", image_file)
     #         st.write(image_path)
     #         st.image(image_path,caption=image_file,use_column_width=True)
-            #st.image("C:\\Users\\HarishSankaranarayan\\Desktop\\test\\1644269774_vehicles.jpg")
+            #st.image("")
 
 # Run the Streamlit app
 if __name__ == "__main__":
